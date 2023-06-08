@@ -22,18 +22,20 @@ public class CountryController implements ICountryController {
     @Autowired
     CountryService countryService;
 
+    //✅
     @GetMapping("/all")
     public List<Country> getAllCountries(){
         return  countryRepository.findAll();
     }
 
+    //✅
     @GetMapping("/country/country-name")
     public Country getCountryByCountryName(@RequestParam(name = "country-name") String countryName){
         Optional<Country> countryOptional = countryRepository.findByCountryName(countryName);
         return countryOptional.get();
     }
 
-    @PostMapping("/country")
+    /*@PostMapping("/country")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveCountry(@RequestBody Country country){
         countryRepository.save(country);
@@ -43,6 +45,6 @@ public class CountryController implements ICountryController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCountry(@RequestBody Country country, @PathVariable String countryName){
         countryService.updateCountry(country, countryName);
-    }
+    }*/
 
 }

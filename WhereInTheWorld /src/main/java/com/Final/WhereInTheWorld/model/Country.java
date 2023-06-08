@@ -23,6 +23,8 @@ public class Country {
     private String countryPopulation;
     private String countryRegion;
     private String countryCapital;
-    private String countryFlags;
+    private String flags;
+    private String cityName;
+
 }
 
