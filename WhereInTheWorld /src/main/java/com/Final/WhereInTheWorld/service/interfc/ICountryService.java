@@ -5,7 +5,7 @@ import com.Final.WhereInTheWorld.model.Country;
 public interface ICountryService {
     void updateCountry(Country country, String countryName);
 
-    void updateCountryCityName(String cityName, String countryName);
+    void updateCountryCityName(String cityName, Integer countryId);
 
-    void deleteCountry( String countryName);
+    void deleteCountry( Integer id);
 }

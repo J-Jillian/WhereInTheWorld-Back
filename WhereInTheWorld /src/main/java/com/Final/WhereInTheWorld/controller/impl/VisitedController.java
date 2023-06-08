@@ -34,6 +34,12 @@ public class VisitedController implements IVisitedController {
         return  countryRepository.findAll();
     }
 
+    @GetMapping("/getVisitedByCountry/{countryId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Visited> getVisitedByCountry(@PathVariable Integer countryId){
+        return  visitedRepository.findByCountryId(countryId);
+    }
+
     //✅
     @PostMapping("/visited/{visitedCountry}")
     @ResponseStatus(HttpStatus.OK)
@@ -51,23 +57,23 @@ public class VisitedController implements IVisitedController {
         countryRepository.save(myCountry);
     }
 
-/*    @PostMapping("/visited")
+   @PostMapping("/visited")
     @ResponseStatus(HttpStatus.CREATED)
     public void setVisited(@RequestBody Country visitedCountry){
         countryRepository.save(visitedCountry);
-    }*/
+    }
 
-    @PatchMapping("/visited/{countryName}")
+    @PatchMapping("/visited/{countryId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateVisitedCountryCity(@RequestBody CountryCityDTO countryCityDTO, @PathVariable String countryName){
-        countryService.updateCountryCityName(countryCityDTO.getCityName(), countryName);
+    public void updateVisitedCountryCity(@RequestBody CountryCityDTO countryCityDTO, @PathVariable Integer countryId){
+        countryService.updateCountryCityName(countryCityDTO.getCityName(), countryId);
 
     }
 
-    @DeleteMapping("/visited/{countryName}")
+    @DeleteMapping("/visited/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCountry(@PathVariable String countryName) {
-        countryService.deleteCountry(countryName);
+    public void deleteCountry(@PathVariable Integer id) {
+        countryService.deleteCountry(id);
     }
 
    /* @PostMapping("/visited/{visitedCountry}/{visitedCity}")
