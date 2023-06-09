@@ -73,9 +73,20 @@ public class VisitedController implements IVisitedController {
     @DeleteMapping("/visited/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCountry(@PathVariable Integer id) {
-        countryService.deleteCountry(id);
-    }
+        Optional<Country> countryOptional = countryRepository.findById(id);
+        if (countryOptional.isPresent()) {
+            Country country = countryOptional.get();
 
+            // Delete the corresponding rows in the visited table
+            List<Visited> visitedList = visitedRepository.findByCountryId(country.getId());
+            visitedRepository.deleteAll(visitedList);
+
+            // Delete the country
+            countryRepository.delete(country);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Country not found");
+        }
+    }
    /* @PostMapping("/visited/{visitedCountry}/{visitedCity}")
     @ResponseStatus(HttpStatus.OK)
     public void setVisited(@PathVariable String visitedCountry, @PathVariable String visitedCity){
